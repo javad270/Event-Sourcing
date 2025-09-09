@@ -28,7 +28,7 @@ namespace EventSourcingDemo.Services
                     new { AccountId = accountId, EventType = eventType, EventData = eventData, OccurredAt = occurredAt }
                 );
             }
-        }
+        } 
 
         public IEnumerable<BankAccountEvent> GetEvents(string accountId)
         {
