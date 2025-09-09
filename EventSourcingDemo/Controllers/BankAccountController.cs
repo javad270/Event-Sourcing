@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using EventSourcingDemo.Domain;
-using EventSourcingDemo.Infrastructure;
+using EventSourcingDemo.Abstractions;
 
 namespace EventSourcingDemo.Controllers
 {
@@ -8,7 +8,11 @@ namespace EventSourcingDemo.Controllers
     [Route("api/[controller]")]
     public class BankAccountController : ControllerBase
     {
-        private static readonly InMemoryEventStore _eventStore = new();
+        private readonly IEventStore _eventStore;
+        public BankAccountController(IEventStore eventStore)
+        {
+            _eventStore = eventStore;
+        }
 
         [HttpPost("create/{accountId}")]
         public IActionResult Create(string accountId)

@@ -1,3 +1,5 @@
+using EventSourcingDemo.Abstractions;
+using EventSourcingDemo.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -5,6 +7,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+// Register AzureSqlEventStore
+var connectionString = builder.Configuration["AzureSql:ConnectionString"];
+builder.Services.AddSingleton<IEventStore>(sp => new AzureSqlEventStore(connectionString));
 
 var app = builder.Build();
 
